@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - '8000:8000'
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/skin_cancer
+      - SECRET_KEY=${SECRET_KEY:-supersecretkey}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=1440
+      - ALLOWED_ORIGINS=http://localhost:5173
+      - MODEL_PATH=/app/model/skin_cancer.onnx
+    volumes:
+      - ./model:/app/model
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - '5173:4173'
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo:6.0
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data: {}

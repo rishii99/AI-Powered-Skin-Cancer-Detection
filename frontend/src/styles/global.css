@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #0d1117;
+  color: #e6edf3;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-bar {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background: #161b22;
+}
+
+.nav-bar a {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.upload-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.prediction-card, .history-list, .feature-grid {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.button.primary, button {
+  background: #238636;
+  border: none;
+  color: white;
+  padding: 0.9rem 1.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.warning {
+  color: #f85149;
+  font-weight: 700;
+}
