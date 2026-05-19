@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 import onnxruntime as ort
 from app.core.config import settings
-from app.services.analysis import build_gradcam_placeholder
+from app.services.analysis import build_gradcam
 
 labels = [
     'melanocytic_nevus',
@@ -43,11 +43,12 @@ def predict(image_bytes: bytes) -> dict:
         }
         for idx in top_idx[:3]
     ]
+    gradcam_data = build_gradcam(image_bytes, int(top_idx[0]), top_predictions[0]['label'])
     return {
         'predictions': top_predictions,
         'primary': top_predictions[0],
         'confidence': top_predictions[0]['confidence'],
         'risk_level': 'high' if top_predictions[0]['confidence'] >= 60 and top_predictions[0]['label'] in ['melanoma', 'basal_cell_carcinoma', 'actinic_keratosis'] else 'low',
         'uncertain': top_predictions[0]['confidence'] < 60,
-        'gradcam': build_gradcam_placeholder()
+        'gradcam': gradcam_data
     }

@@ -50,7 +50,54 @@ body {
   cursor: pointer;
 }
 
-.warning {
-  color: #f85149;
-  font-weight: 700;
+.button.secondary {
+  background: #1f6feb;
+}
+
+.status-message {
+  color: #c9d1d9;
+  margin: 1rem 0;
+}
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #58a6ff;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.prediction-card img {
+  max-width: 100%;
+  border-radius: 16px;
+  margin-top: 0.75rem;
+}
+
+.gradcam-preview {
+  margin-top: 1rem;
+}
+
+.result-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 800px) {
+  .result-row {
+    grid-template-columns: 1fr;
+  }
 }

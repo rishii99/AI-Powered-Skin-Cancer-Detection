@@ -8,7 +8,8 @@
 - Confidence uncertainty warnings
 - Prediction history with MongoDB
 - Feedback system
-- Grad-CAM placeholder (ready for expansion)
+- Real Grad-CAM implementation support via TensorFlow Keras saved model
+- PDF report generation with jsPDF and html2canvas
 - Docker containerization
 - CI pipeline (GitHub Actions)
 - FastAPI backend with CORS

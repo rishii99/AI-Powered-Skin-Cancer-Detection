@@ -62,7 +62,12 @@ def predict_single(image: UploadFile = File(...), authorization: str = Header(..
         raise HTTPException(status_code=400, detail='Image exceeds maximum allowed size')
     if len(image_bytes) == 0:
         raise HTTPException(status_code=400, detail='Image data is empty or invalid')
-    result = predict(image_bytes)
+    try:
+        result = predict(image_bytes)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc))
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f'Prediction failed: {str(exc)}')
     document = {
         'user_id': current_user['id'],
         'label': result['primary']['label'],

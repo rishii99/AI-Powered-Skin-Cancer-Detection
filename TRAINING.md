@@ -2,13 +2,19 @@
 
 ## Setup
 
-1. **Create a Python environment:**
+This project is designed to be trained on GPU in Google Colab or Kaggle for faster model convergence.
+
+1. **Open Google Colab:**
+   - Go to `https://colab.research.google.com`
+   - Enable GPU via `Runtime > Change runtime type > GPU > T4`
+
+2. **Create a Python environment locally (optional):**
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-2. **Install training dependencies:**
+3. **Install training dependencies:**
    ```bash
    pip install tensorflow keras numpy pandas matplotlib scikit-learn opencv-python-headless
    ```

@@ -20,18 +20,35 @@ export async function registerUser(payload) {
 export async function uploadSkinImage(file, token) {
   const formData = new FormData()
   formData.append('image', file)
-  const response = await api.post('/predict', formData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data'
+  try {
+    const response = await api.post('/predict', formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    return response.data
+  } catch (error) {
+    if (!error.response) {
+      throw new Error('Server busy or network error. Please try again later.')
     }
-  })
-  return response.data
+    if (error.response.status >= 500) {
+      throw new Error('Server busy. Please try again in a moment.')
+    }
+    throw new Error(error.response.data?.detail || 'Upload failed. Please try again.')
+  }
 }
 
 export async function fetchHistory(token) {
-  const response = await api.get('/history', {
-    headers: { Authorization: `Bearer ${token}` }
-  })
-  return response.data
+  try {
+    const response = await api.get('/history', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    return response.data
+  } catch (error) {
+    if (!error.response) {
+      throw new Error('Server busy or network error.')
+    }
+    throw new Error(error.response.data?.detail || 'Unable to fetch history.')
+  }
 }
