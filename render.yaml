@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: skin-cancer-backend
+    env: docker
+    plan: starter
+    repo: <owner>/<repo>
+    branch: main
+    dockerfilePath: backend/Dockerfile
+    buildCommand: docker build -f backend/Dockerfile -t backend .
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: SECRET_KEY
+        value: $SECRET_KEY
+      - key: MONGO_URI
+        value: $MONGO_URI
+      - key: ALLOWED_ORIGINS
+        value: $ALLOWED_ORIGINS
+      - key: MODEL_PATH
+        value: /app/model/skin_cancer.onnx
+
+  - type: web
+    name: skin-cancer-frontend
+    env: static
+    plan: starter
+    repo: <owner>/<repo>
+    branch: main
+    buildCommand: cd frontend && npm install && npm run build
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: $VITE_API_BASE_URL
